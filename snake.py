@@ -22,12 +22,12 @@ class SnakeGame:
     def __init__(self):
         pygame.init()
         info = pygame.display.Info()
-        # self.l = info.current_w
-        # self.h = info.current_h
-
+        
+        self.l = info.current_w
+        self.h = info.current_h
         ### Tests ###
-        self.l = 1200
-        self.h = 800
+        # self.l = 1200
+        # self.h = 800
 
         self.xt = self.l*10/100     # x haut gauche limites
         self.yt = self.h*10/100     # y haut gauche limites
@@ -46,8 +46,9 @@ class SnakeGame:
         self.nb_cases_x = int(self.longeur_jeu/self.t_boule)
         self.nb_cases_y = int(self.hauteur_jeu/self.t_boule)
 
-        # self.screen = pygame.display.set_mode((self.l, self.h), pygame.FULLSCREEN)
-        self.screen = pygame.display.set_mode((self.l, self.h))
+        self.screen = pygame.display.set_mode((self.l, self.h), pygame.FULLSCREEN)
+        # self.screen = pygame.display.set_mode((self.l, self.h))
+        
         pygame.display.set_caption("Snake RL")
         self.clock = pygame.time.Clock()
 

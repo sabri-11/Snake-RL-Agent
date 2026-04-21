@@ -8,7 +8,7 @@ if __name__ == "__main__":
     jeu = SnakeGame()
     running = True
     action=0
-    nb_parties = 2000
+    nb_parties = 1000
         
     for partie in range(nb_parties):
         jeu.reset()
