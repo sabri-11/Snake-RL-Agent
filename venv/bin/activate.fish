@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/sabri/perso/snakeRL/Snake-RL-Agent/venv
+set -gx VIRTUAL_ENV /home/sabri/perso/Snake-RL-Agent/venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH
