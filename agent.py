@@ -83,8 +83,8 @@ if __name__ == "__main__":
             
             agent.update_Q_table(etat0, action, rwd, etat, go)
             etat0 = etat.copy()
-            if partie > 9990:
-                fps = 25
+            if partie > 5000:
+                fps = 60
                 jeu.render()
                 jeu.clock.tick(fps)
             

@@ -73,7 +73,7 @@ class SnakeGame:
         x_pomme, y_pomme = self.serpent[0]
         
         while (x_pomme, y_pomme) in self.serpent:
-            case_random = (random.randint(2, self.nb_cases_x-1), random.randint(2, self.nb_cases_y-2))     # peut être mettre -2 au lieu de -1 ! 2 au début pour pas avoir boule sur ligne noire
+            case_random = (random.randint(0, self.nb_cases_x-1), random.randint(0, self.nb_cases_y-1))     # peut être mettre -2 au lieu de -1 ! 2 au début pour pas avoir boule sur ligne noire
 
             x_pomme = self.xt + case_random[0]*self.t_boule
 
@@ -90,7 +90,7 @@ class SnakeGame:
         pygame.draw.circle(self.screen, POMME, self.coord_pomme, self.t_boule)
 
         debut_tige = (self.coord_pomme[0], self.coord_pomme[1]-(self.t_boule/2))
-        fin_tige = ((self.coord_pomme[0]+self.t_boule/2, self.coord_pomme[1]-(1.25*self.t_boule)))
+        fin_tige = ((self.coord_pomme[0]+self.t_boule/2, self.coord_pomme[1]-(1.25*self.t_boule)))  
 
         pygame.draw.line(self.screen, TIGE, debut_tige, fin_tige, self.t_boule//2)
         
@@ -176,14 +176,19 @@ class SnakeGame:
     
     def danger(self, pt):
 
-        if pt[0] >= self.xt + self.t_boule*(self.nb_cases_x - 0.5):
+        # Mur Gauche
+        if pt[0] < self.xt:
             return True
-        elif pt[1] <= self.yt + 0.8*self.t_boule:
+        # Mur Droite
+        elif pt[0] >= self.xt + (self.nb_cases_x * self.t_boule):
             return True
-        elif pt[0] <= self.xt + 0.8*self.t_boule:
+        # Mur Haut
+        elif pt[1] < self.yt:
             return True
-        elif pt[1] >= self.yt + self.t_boule*(self.nb_cases_y - 0.5):
+        # Mur Bas
+        elif pt[1] >= self.yt + (self.nb_cases_y * self.t_boule):
             return True
+        # Corps
         elif pt in self.serpent:
             return True
         else:
