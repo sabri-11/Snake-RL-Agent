@@ -26,21 +26,25 @@ class SnakeGame:
         # self.h = info.current_h
 
         ### Tests ###
-        self.l = 800
-        self.h = 600
+        self.l = 1200
+        self.h = 800
 
         self.xt = self.l*10/100     # x haut gauche limites
         self.yt = self.h*10/100     # y haut gauche limites
 
-        # self.x_centre = self.l//2
-        # self.y_centre = self.h//2
+        # self.xt = self.l*35/100     # x haut gauche limites
+        # self.yt = self.h*35/100  
 
-        self.t_boule = int((self.l+self.h) * 0.3/100)
-        longeur_jeu = self.l*80/100
-        hauteur_jeu = self.h*80/100
 
-        self.nb_cases_x = int(longeur_jeu/self.t_boule)
-        self.nb_cases_y = int(hauteur_jeu/self.t_boule)
+        self.t_boule = int(1.5*(self.l+self.h) * 0.3/100)
+        self.longeur_jeu = self.l*80/100
+        self.hauteur_jeu = self.h*80/100
+
+        # self.longeur_jeu = self.l*30/100
+        # self.hauteur_jeu = self.h*30/100
+
+        self.nb_cases_x = int(self.longeur_jeu/self.t_boule)
+        self.nb_cases_y = int(self.hauteur_jeu/self.t_boule)
 
         # self.screen = pygame.display.set_mode((self.l, self.h), pygame.FULLSCREEN)
         self.screen = pygame.display.set_mode((self.l, self.h))
@@ -79,7 +83,7 @@ class SnakeGame:
 
     def render(self):
         self.screen.fill(BACKGROUND) 
-        pygame.draw.rect(self.screen, NOIR, (self.l*10/100, self.h*10/100, self.l*80/100, self.h*80/100), self.t_boule)  # limites de 10 à 90% de l'écran
+        pygame.draw.rect(self.screen, NOIR, (self.xt, self.yt, self.longeur_jeu, self.hauteur_jeu), self.t_boule)  # limites de 10 à 90% de l'écran
         for b in self.serpent: 
             pygame.draw.circle(self.screen, SERPENT, b, self.t_boule)
 
@@ -132,7 +136,7 @@ class SnakeGame:
             self.serpent.insert(0, n_tete)
             self.placer_pomme()
         else:   
-            reward = -0.1
+            reward = -1
             self.serpent.insert(0, n_tete)
             self.serpent.pop()
         
