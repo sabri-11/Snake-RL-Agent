@@ -136,7 +136,7 @@ class SnakeGame:
             self.serpent.insert(0, n_tete)
             self.placer_pomme()
         else:   
-            reward = -1
+            reward = -0.1
             self.serpent.insert(0, n_tete)
             self.serpent.pop()
         
