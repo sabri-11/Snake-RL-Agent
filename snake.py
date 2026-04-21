@@ -73,12 +73,15 @@ class SnakeGame:
         x_pomme, y_pomme = self.serpent[0]
         
         while (x_pomme, y_pomme) in self.serpent:
-            case_random = (random.randint(0, self.nb_cases_x-1), random.randint(0, self.nb_cases_y-1))     # peut être mettre -2 au lieu de -1 ! 2 au début pour pas avoir boule sur ligne noire
+            case_random = (random.randint(2, self.nb_cases_x-1), random.randint(2, self.nb_cases_y-2))     # peut être mettre -2 au lieu de -1 ! 2 au début pour pas avoir boule sur ligne noire
 
-            x_pomme = self.xt + case_random[0]*self.t_boule
+            x_pomme = self.xt + (case_random[0])*self.t_boule
+            y_pomme = self.yt + (case_random[1])*self.t_boule
 
-            y_pomme = self.yt + case_random[1]*self.t_boule
             self.coord_pomme = (x_pomme, y_pomme)
+            # xlim = (self.xt + 2*self.t_boule, self.xt + (self.nb_cases_x-1)*self.t_boule)
+            # ylim = (self.yt + 2*self.t_boule, self.yt + (self.nb_cases_y-2)*self.t_boule)
+            # self.coord_pomme = (xlim[1], ylim[1])
 
 
     def render(self):
@@ -177,16 +180,16 @@ class SnakeGame:
     def danger(self, pt):
 
         # Mur Gauche
-        if pt[0] < self.xt:
+        if pt[0] < self.xt + 2*self.t_boule:
             return True
         # Mur Droite
         elif pt[0] >= self.xt + (self.nb_cases_x * self.t_boule):
             return True
         # Mur Haut
-        elif pt[1] < self.yt:
+        elif pt[1] < self.yt + 2*self.t_boule:
             return True
         # Mur Bas
-        elif pt[1] >= self.yt + (self.nb_cases_y * self.t_boule):
+        elif pt[1] >= self.yt + ((self.nb_cases_y-1)*self.t_boule):
             return True
         # Corps
         elif pt in self.serpent:
@@ -195,14 +198,16 @@ class SnakeGame:
             return False
         
 
-        
+# xlim = (self.xt + 2*self.t_boule, self.xt + (self.nb_cases_x-1.25)*self.t_boule)
+# ylim = (self.yt + 2*self.t_boule, self.yt + (self.nb_cases_y-2)*self.t_boule)
 
 
 
 
 if __name__ == "__main__":
     jeu = SnakeGame()
-    
+    jeu.step(1)
+    jeu.step(1)
     running = True
     while running:
         # 1. On écoute le système (évite que la fenêtre "plante")
@@ -218,7 +223,8 @@ if __name__ == "__main__":
 
         # 2. On dessine l'écran en continu
         jeu.render()
-        #etat, _, _ = jeu.step(0)
+        
+        etat, _, _ = jeu.step(0)
         #print(etat)
         
         # 3. On limite la vitesse (15 images par seconde par exemple)
