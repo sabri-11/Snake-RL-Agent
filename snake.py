@@ -25,15 +25,15 @@ class SnakeGame:
         
         self.l = info.current_w
         self.h = info.current_h
-        ### Tests ###
+        # ## Tests ###
         # self.l = 1200
         # self.h = 800
 
-        self.xt = self.l*10/100     # x haut gauche limites
-        self.yt = self.h*10/100     # y haut gauche limites
+        self.screen = pygame.display.set_mode((self.l, self.h), pygame.FULLSCREEN)
+        # self.screen = pygame.display.set_mode((self.l, self.h))
 
-        # self.xt = self.l*35/100     # x haut gauche limites
-        # self.yt = self.h*35/100  
+        self.xt = int(self.l*10/100)     # x haut gauche limites
+        self.yt = int(self.h*10/100)     # y haut gauche limites
 
 
         self.t_boule = int(1.5*(self.l+self.h) * 0.3/100)
@@ -46,8 +46,7 @@ class SnakeGame:
         self.nb_cases_x = int(self.longeur_jeu/self.t_boule)
         self.nb_cases_y = int(self.hauteur_jeu/self.t_boule)
 
-        self.screen = pygame.display.set_mode((self.l, self.h), pygame.FULLSCREEN)
-        # self.screen = pygame.display.set_mode((self.l, self.h))
+
         
         pygame.display.set_caption("Snake RL")
         self.clock = pygame.time.Clock()
@@ -134,7 +133,8 @@ class SnakeGame:
             reward = -10
             return self._get_state(), reward, go
 
-        if n_tete == self.coord_pomme:
+        condManger = (n_tete[0] >= self.coord_pomme[0]-1/4*self.t_boule) and ((n_tete[0] <= self.coord_pomme[0]+1/4*self.t_boule)) and (n_tete[1] >= self.coord_pomme[1]-1/4*self.t_boule) and (n_tete[1] <= self.coord_pomme[1]+1/4*self.t_boule)
+        if condManger:
             reward = 10
             self.score += 1
             self.serpent.insert(0, n_tete)

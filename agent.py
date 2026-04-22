@@ -8,7 +8,7 @@ class Agent:
         self.epsilon = 1.0
         self.epsilon_min = 0.01
         self.epsilon_decay = 0.995
-        self.gamma = 0.8
+        self.gamma = 0.9
         self.alpha = 0.1
 
     def get_action(self, etat_liste):

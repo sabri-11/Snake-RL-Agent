@@ -9,6 +9,8 @@ if __name__ == "__main__":
     running = True
     action=0
     nb_parties = 1000
+    print(jeu.nb_cases_x)
+    print(jeu.nb_cases_y)
         
     for partie in range(nb_parties):
         jeu.reset()
@@ -30,22 +32,23 @@ if __name__ == "__main__":
             else:
                 tours_sans_manger += 1
 
-            if tours_sans_manger > 500:
+            if tours_sans_manger > jeu.nb_cases_x*5:
                 go = True
                 rwd = -5
             
             agent.update_Q_table(etat0, action, rwd, etat, go)
             etat0 = etat.copy()
             if partie > nb_parties-10:
-                fps = 180
+                fps = 15
                 jeu.render()
                 jeu.clock.tick(fps)
+                
             
-
+        print(f"Partie {partie + 1}/{nb_parties} | Score : {jeu.score} | Taille Mémoire : {len(agent.Q_table)}")
         if agent.epsilon > agent.epsilon_min:
             agent.epsilon *= agent.epsilon_decay
         
 
-        print(f"Partie {partie + 1}/{nb_parties} | Score : {jeu.score} | Taille Mémoire : {len(agent.Q_table)}")
+        
 
     pygame.quit()
